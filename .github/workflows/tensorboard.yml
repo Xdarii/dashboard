@@ -1,0 +1,25 @@
+name: TensorBoard
+
+on:
+  push:
+    branches:
+      - main  # Adjust to your main branch name
+
+jobs:
+  tensorboard:
+    runs-on: ubuntu-latest  # You can choose a different runner if needed
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8  # Choose the Python version you need
+
+    - name: Install dependencies
+      run: pip install -r requirements.txt  # Adjust as needed
+
+    - name: Run TensorBoard
+      run: tensorboard --logdir=tensorboard_logs --host 0.0.0.0 --port ${{ runner.port }}
